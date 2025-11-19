@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package bookstore;
+
+option go_package = "github.com/<your-name>/bookstore-grpc/proto;bookstore";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service Bookstore {
+  rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+  rpc GetStock (GetStockRequest) returns (GetStockResponse);
+  rpc StreamOrders (google.protobuf.Empty) returns (stream OrderEvent);
+}
+
+message CreateOrderRequest {
+  string book_id = 1;
+  int32 quantity = 2;
+  string buyer = 3;
+}
+
+message CreateOrderResponse {
+  bool success = 1;
+  string order_id = 2;
+  string message = 3;
+}
+
+message GetStockRequest {
+  string book_id = 1;
+}
+
+message GetStockResponse {
+  int32 stock = 1;
+}
+
+message OrderEvent {
+  string order_id = 1;
+  string book_id = 2;
+  int32 quantity = 3;
+  string buyer = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
