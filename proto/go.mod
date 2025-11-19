@@ -1,4 +1,4 @@
-module Protoservice
+module github.com/phongphat-myorder/bookstore-grpc/proto
 
 go 1.25.3
 
